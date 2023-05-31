@@ -8,7 +8,11 @@ class Menu extends Phaser.Scene {
         const tileset = map.addTilesetImage('colored_packed', 'tilesetImage')
         const floorLayer = map.createLayer('Floor', tileset, 0, 0)
         const wallLayer = map.createLayer('Wall', tileset, 0, 0)
+        const houseLayer = map.createLayer('House', tileset, 0, 0)
+        const doorLayer1 = map.createLayer('Door1', tileset, 0, 0)
         wallLayer.setCollisionByProperty({ collides: true })
+        houseLayer.setCollisionByProperty({ collides: true })
+        doorLayer1.setCollisionByProperty({ collides: true })
 
         this.slime = this.physics.add.sprite(32, 32, 'slime', 0)
         this.anims.create({
@@ -20,7 +24,12 @@ class Menu extends Phaser.Scene {
         this.slime.play('jiggle')
         this.slime.body.setCollideWorldBounds(true)
         this.physics.add.collider(this.slime, wallLayer)
+        this.physics.add.collider(this.slime, houseLayer)
+        this.physics.add.collider(this.slime, doorLayer1, () =>{
+            this.scene.start('titleScene')
+        }, null, this)
         this.VEL = 100
+
 
         // camera properties
         this.cam = this.cameras.main
