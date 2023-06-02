@@ -14,7 +14,7 @@ let config = {
     zoom: 2,
     height: 320,
     width: 320,
-    scene: [ Load, Title, Menu ]
+    scene: [ Load, Title, Menu, Level1 ]
 }
 
 const game = new Phaser.Game(config)
@@ -24,4 +24,6 @@ const centerX = game.config.width/2
 const centerY = game.config.height/2
 const width = game.config.width
 const height = game.config.height
-let cursors = null;
+let cursors = null
+let spawnFlag = null
+let coin = 0
