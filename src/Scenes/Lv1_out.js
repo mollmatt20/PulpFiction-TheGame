@@ -1,6 +1,6 @@
-class Level1 extends Phaser.Scene {
+class Lv1_out extends Phaser.Scene {
     constructor() {
-        super("leveloneScene")
+        super("lv1outScene")
     }
 
     create() {
@@ -10,11 +10,16 @@ class Level1 extends Phaser.Scene {
         const floorLayer = map.createLayer('Floor', tileset, 0, 0)
         const wallLayer = map.createLayer('Wall', tileset, 0, 0)
         const doorLayer = map.createLayer('Door', tileset, 0, 0)
+        const door2Layer = map.createLayer('Door2', tileset, 0, 0)        
 
         wallLayer.setCollisionByProperty({ collides: true })
         doorLayer.setCollisionByProperty({ collides: true })
+        door2Layer.setCollisionByProperty({ collides: true })
 
-        const slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn')
+        let slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn')
+        if(spawnFlag == 'door2'){
+            slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn2')
+        }
         this.slime = this.physics.add.sprite(slimeSpawn.x, slimeSpawn.y, 'slime', 0)
         this.anims.create({
             key: 'jiggle',
@@ -42,8 +47,16 @@ class Level1 extends Phaser.Scene {
         this.physics.add.collider(this.slime, wallLayer)
         this.physics.add.collider(this.slime, doorLayer, () => {
             if(coin == 3) {
+                coin = 0
                 spawnFlag = 'door'
                 this.scene.start('menuScene')
+            }
+        })
+        this.physics.add.collider(this.slime, door2Layer, () => {
+            if(coin == 3) {
+                coin = 0
+                spawnFlag = 'door2'
+                this.scene.start('lv1buildScene')
             }
         })
         this.physics.add.overlap(this.slime, this.coinGroup, (obj1, obj2) => {
