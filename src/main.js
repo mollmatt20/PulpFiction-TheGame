@@ -14,7 +14,7 @@ let config = {
     zoom: 2,
     height: 320,
     width: 320,
-    scene: [ Load, Title, Menu, Lv1_out, Lv1_Build  ]
+    scene: [ Load, Title, Menu, Lv1_out, Lv1_Build, Lv2_out, Lv2_build1, Lv2_build2, Lv2_build3 ]
 }
 
 const game = new Phaser.Game(config)
@@ -27,3 +27,4 @@ const height = game.config.height
 let cursors = null
 let spawnFlag = null
 let coin = 0
+let key = 0

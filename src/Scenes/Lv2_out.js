@@ -1,29 +1,34 @@
-class Menu extends Phaser.Scene {
-    constructor(){
-        super("menuScene")
+class Lv2_out extends Phaser.Scene {
+    constructor() {
+        super('lv2outScene')
     }
-
-    create(){
-        const map = this.add.tilemap('menuJSON')
+    
+    create() {
+        const map = this.add.tilemap('lv2_outJSON')
         const tileset = map.addTilesetImage('colored_packed', 'tilesetImage')
 
         const floorLayer = map.createLayer('Floor', tileset, 0, 0)
         const wallLayer = map.createLayer('Wall', tileset, 0, 0)
         const houseLayer = map.createLayer('House', tileset, 0, 0)
-        const doorLayer1 = map.createLayer('Door1', tileset, 0, 0)
-        const doorLayer2 = map.createLayer('Door2', tileset, 0, 0)
+        const returnLayer = map.createLayer('Return Door', tileset, 0, 0)
+        const door1Layer = map.createLayer('Door1', tileset, 0, 0) 
+        const door2Layer = map.createLayer('Door2', tileset, 0, 0)        
+        const door3Layer = map.createLayer('Door3', tileset, 0, 0)               
 
         wallLayer.setCollisionByProperty({ collides: true })
         houseLayer.setCollisionByProperty({ collides: true })
-        doorLayer1.setCollisionByProperty({ collides: true })
-        doorLayer2.setCollisionByProperty({ collides: true })
+        returnLayer.setCollisionByProperty({ collides: true })
+        door1Layer.setCollisionByProperty({ collides: true })
+        door2Layer.setCollisionByProperty({ collides: true })
+        door3Layer.setCollisionByProperty({ collides: true })
 
         let slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn')
-        if(spawnFlag == 'lv1_door'){
-            slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn2')
-        }
-        if(spawnFlag == 'lv2_door'){
-            slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn3')
+        if(spawnFlag == 'build1'){
+            slimeSpawn = map.findObject('Spawns', obj => obj.name === 'build1Spawn')
+        } else if(spawnFlag == 'build2') {
+            slimeSpawn = map.findObject('Spawns', obj => obj.name === 'build2Spawn')
+        } else if(spawnFlag == 'build3') {
+            slimeSpawn = map.findObject('Spawns', obj => obj.name === 'build3Spawn')
         }
         this.slime = this.physics.add.sprite(slimeSpawn.x, slimeSpawn.y, 'slime', 0)
         this.anims.create({
@@ -33,20 +38,53 @@ class Menu extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('slime', { start: 0, end: 1})
         })
         this.slime.play('jiggle')
+
+        //this.coins = map.createFromObjects("Objects", {
+          //  name: "coin",
+          //  key: "kenney_sheet",
+          //  frame: 214
+        //});
+
+        // for simplicity's sake, we'll add physics to the coins manually
+        // https://newdocs.phaser.io/docs/3.54.0/Phaser.Physics.Arcade.World#enable        
+        // second parameter is 0: DYNAMIC_BODY or 1: STATIC_BODY
+        //this.physics.world.enable(this.coins, Phaser.Physics.Arcade.STATIC_BODY);
         
+        // then add the coins to a group
+        //this.coinGroup = this.add.group(this.coins);
+
         this.slime.body.setCollideWorldBounds(true)
         this.physics.add.collider(this.slime, wallLayer)
         this.physics.add.collider(this.slime, houseLayer)
-        this.physics.add.collider(this.slime, doorLayer1, () =>{
-            coin = 0
-            this.scene.start('lv1outScene')
-        }, null, this)
-        this.physics.add.collider(this.slime, doorLayer2, () =>{
-            coin = 0
-            this.scene.start('lv2outScene')
-        }, null, this)
-        this.VEL = 100
+        this.physics.add.collider(this.slime, returnLayer, () => {
+            spawnFlag = 'lv2_door'
+            this.scene.start('menuScene')
+        })
+        this.physics.add.collider(this.slime, door1Layer, () => {
+            spawnFlag = 'build1'
+            if(key == 0) {
+                this.scene.start('lv2build1Scene')
+            }
+        })
+        this.physics.add.collider(this.slime, door2Layer, () => {
+            spawnFlag = 'build2'
+            if(key == 1) {
+                this.scene.start('lv2build2Scene')
+            }
+        })
+        this.physics.add.collider(this.slime, door3Layer, () => {
+            spawnFlag = 'build3'
+            if(key == 2) {
+                this.scene.start('lv2build3Scene')
+            }
+        })
 
+        //this.physics.add.overlap(this.slime, this.coinGroup, (obj1, obj2) => {
+          //  coin++;
+          //  obj2.destroy(); // remove coin on overlap
+        //});
+
+        this.VEL = 100
 
         // camera properties
         this.cam = this.cameras.main
@@ -59,7 +97,6 @@ class Menu extends Phaser.Scene {
     }
 
     update() {
-        // check player against camera bounds
         this.checkCamBounds(this.slime, this.cam)
 
         this.direction = new Phaser.Math.Vector2(0)
@@ -77,9 +114,6 @@ class Menu extends Phaser.Scene {
         this.slime.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
     }
 
-    // check passed obj against passed camera bounds to scroll camera
-    // assumes object origin is 0.5
-    // also relies upon player tile & physics world collisions to keep player inside world
     checkCamBounds(obj, cam) {
         if(obj.x + obj.width/2 > cam.width + cam.scrollX) {
             // move camera
