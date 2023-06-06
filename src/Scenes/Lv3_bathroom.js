@@ -1,10 +1,10 @@
-class Lv2_build1 extends Phaser.Scene {
+class Lv3_bathroom extends Phaser.Scene {
     constructor() {
-        super('lv2build1Scene')
+        super('lv3bathroomScene')
     }
 
     create() {
-        const map = this.add.tilemap('lv2_build1JSON')
+        const map = this.add.tilemap('lv3_bathroomJSON')
         const tileset = map.addTilesetImage('colored_packed', 'tilesetImage')
 
         const floorLayer = map.createLayer('Floor', tileset, 0, 0)
@@ -26,7 +26,7 @@ class Lv2_build1 extends Phaser.Scene {
         this.slime.play('jiggle')
 
         this.key = map.createFromObjects("Objects", {
-            name: "Key",
+            name: "key",
             key: "kenney_sheet",
             frame: 560
         });
@@ -39,9 +39,7 @@ class Lv2_build1 extends Phaser.Scene {
         this.slime.body.setCollideWorldBounds(true)
         this.physics.add.collider(this.slime, wallLayer)
         this.physics.add.collider(this.slime, doorLayer, () => {
-            if(key == 1 || key == 5) {
-                this.scene.start('lv2outScene')
-            }
+            this.scene.start('lv3homeScene')
         })
 
         this.physics.add.overlap(this.slime, this.key, (obj1, obj2) => {

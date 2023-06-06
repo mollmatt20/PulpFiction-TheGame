@@ -62,13 +62,13 @@ class Lv2_out extends Phaser.Scene {
         })
         this.physics.add.collider(this.slime, door1Layer, () => {
             spawnFlag = 'build1'
-            if(key == 0) {
+            if(key == 0 || key == 4) {
                 this.scene.start('lv2build1Scene')
             }
         })
         this.physics.add.collider(this.slime, door2Layer, () => {
             spawnFlag = 'build2'
-            if(key == 1) {
+            if(key == 1 || key == 3) {
                 this.scene.start('lv2build2Scene')
             }
         })
@@ -84,7 +84,7 @@ class Lv2_out extends Phaser.Scene {
           //  obj2.destroy(); // remove coin on overlap
         //});
 
-        this.VEL = 100
+        this.VEL = 200
 
         // camera properties
         this.cam = this.cameras.main
@@ -94,6 +94,7 @@ class Lv2_out extends Phaser.Scene {
         this.physics.world.bounds.setTo(0, 0, map.widthInPixels, map.heightInPixels);
 
         this.cursors = this.input.keyboard.createCursorKeys()
+        console.log(key)
     }
 
     update() {

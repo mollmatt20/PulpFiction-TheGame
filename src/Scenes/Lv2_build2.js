@@ -39,7 +39,7 @@ class Lv2_build2 extends Phaser.Scene {
         this.slime.body.setCollideWorldBounds(true)
         this.physics.add.collider(this.slime, wallLayer)
         this.physics.add.collider(this.slime, doorLayer, () => {
-            if(key == 2) {
+            if(key == 2 || key == 4) {
                 this.scene.start('lv2outScene')
             }
         })
