@@ -1,25 +1,20 @@
-class Lv2_build2 extends Phaser.Scene {
+class Lv2_bathroom extends Phaser.Scene {
     constructor() {
-        super('lv2build2Scene')
+        super('lv2bathroomScene')
     }
 
     create() {
-        const map = this.add.tilemap('lv2_build2JSON')
+        const map = this.add.tilemap('lv2_bathroomJSON')
         const tileset = map.addTilesetImage('colored_packed', 'tilesetImage')
 
         const floorLayer = map.createLayer('Floor', tileset, 0, 0)
         const wallLayer = map.createLayer('Wall', tileset, 0, 0)
         const doorLayer = map.createLayer('Door', tileset, 0, 0)
-        const bathroomLayer = map.createLayer('Bathroom Door', tileset, 0, 0)
 
         wallLayer.setCollisionByProperty({ collides: true })
         doorLayer.setCollisionByProperty({ collides: true })
-        bathroomLayer.setCollisionByProperty({ collides: true })
 
         let slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn')
-        if(spawnFlag == 'bathroom') {
-            let slimeSpawn = map.findObject('Spawns', obj => obj.name === 'bathroomSpawn')
-        }
 
         this.slime = this.physics.add.sprite(slimeSpawn.x, slimeSpawn.y, 'slime', 0)
         this.anims.create({
@@ -43,14 +38,9 @@ class Lv2_build2 extends Phaser.Scene {
 
         this.slime.body.setCollideWorldBounds(true)
         this.physics.add.collider(this.slime, wallLayer)
-        this.physics.add.collider(this.slime, bathroomLayer, () => {
-            if(key == 3) {
-                this.scene.start('lv2bathroomtextScene')
-            }
-        })
         this.physics.add.collider(this.slime, doorLayer, () => {
-            if(key == 2 || key == 4) {
-                this.scene.start('lv2outScene')
+            if(key == 4) {
+                this.scene.start('lv2build3Scene')
             }
         })
 
@@ -58,7 +48,7 @@ class Lv2_build2 extends Phaser.Scene {
             key++;
             obj2.destroy(); // remove coin on overlap
         });
-        
+
         this.VEL = 100
 
         // camera properties

@@ -39,20 +39,6 @@ class Lv2_out extends Phaser.Scene {
         })
         this.slime.play('jiggle')
 
-        //this.coins = map.createFromObjects("Objects", {
-          //  name: "coin",
-          //  key: "kenney_sheet",
-          //  frame: 214
-        //});
-
-        // for simplicity's sake, we'll add physics to the coins manually
-        // https://newdocs.phaser.io/docs/3.54.0/Phaser.Physics.Arcade.World#enable        
-        // second parameter is 0: DYNAMIC_BODY or 1: STATIC_BODY
-        //this.physics.world.enable(this.coins, Phaser.Physics.Arcade.STATIC_BODY);
-        
-        // then add the coins to a group
-        //this.coinGroup = this.add.group(this.coins);
-
         this.slime.body.setCollideWorldBounds(true)
         this.physics.add.collider(this.slime, wallLayer)
         this.physics.add.collider(this.slime, houseLayer)
@@ -63,19 +49,29 @@ class Lv2_out extends Phaser.Scene {
         this.physics.add.collider(this.slime, door1Layer, () => {
             spawnFlag = 'build1'
             if(key == 0 || key == 4) {
-                this.scene.start('lv2build1Scene')
+                if(key == 0) {
+                    this.scene.start('lv2build1text1Scene')
+                }
+                if(key == 4) {
+                    this.scene.start('lv2build1text2Scene')
+                }
             }
         })
         this.physics.add.collider(this.slime, door2Layer, () => {
             spawnFlag = 'build2'
             if(key == 1 || key == 3) {
-                this.scene.start('lv2build2Scene')
+                if(key == 1) {
+                    this.scene.start('lv2build2text1Scene')
+                }
+                if(key == 3) {
+                    this.scene.start('lv2build2text2Scene')
+                }
             }
         })
         this.physics.add.collider(this.slime, door3Layer, () => {
             spawnFlag = 'build3'
             if(key == 2) {
-                this.scene.start('lv2build3Scene')
+                this.scene.start('lv2build3text1Scene')
             }
         })
 
