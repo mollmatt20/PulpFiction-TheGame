@@ -39,7 +39,9 @@ class Menu extends Phaser.Scene {
         this.physics.add.collider(this.slime, houseLayer)
         this.physics.add.collider(this.slime, doorLayer1, () =>{
             coin = 0
-            this.scene.start('lv1outScene')
+            if(lvCompleted == 0) {
+                this.scene.start('lv1entertextScene')
+            }
         }, null, this)
         this.physics.add.collider(this.slime, doorLayer2, () =>{
             key = 0

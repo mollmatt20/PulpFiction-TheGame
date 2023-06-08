@@ -56,7 +56,7 @@ class Lv1_out extends Phaser.Scene {
             if(coin == 3) {
                 coin = 0
                 spawnFlag = 'build1'
-                this.scene.start('lv1buildScene')
+                this.scene.start('lv1build1textScene')
             }
         })
         this.physics.add.overlap(this.slime, this.coinGroup, (obj1, obj2) => {
@@ -64,7 +64,7 @@ class Lv1_out extends Phaser.Scene {
             obj2.destroy(); // remove coin on overlap
         });
 
-        this.VEL = 100
+        this.VEL = 200
 
         // camera properties
         this.cam = this.cameras.main
