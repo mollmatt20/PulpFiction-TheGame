@@ -37,7 +37,7 @@ class Lv3_home extends Phaser.Scene {
         })
         this.physics.add.collider(this.slime, mainLayer, () => {
             spawnFlag = 'endDoor'
-            this.scene.start('lv3bathroomScene')
+            this.scene.start('lv3bathroomtextScene')
         })
         
 

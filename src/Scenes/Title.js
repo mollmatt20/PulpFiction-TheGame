@@ -27,7 +27,7 @@ class Title extends Phaser.Scene {
     update(){
         if(Phaser.Input.Keyboard.JustDown(cursors.up)) {
             spawnFlag = 'menu'
-            this.scene.start('lv2outScene')
+            this.scene.start('lv3entertextScene')
         }
     }
 }

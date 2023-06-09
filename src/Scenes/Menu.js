@@ -12,11 +12,13 @@ class Menu extends Phaser.Scene {
         const houseLayer = map.createLayer('House', tileset, 0, 0)
         const doorLayer1 = map.createLayer('Door1', tileset, 0, 0)
         const doorLayer2 = map.createLayer('Door2', tileset, 0, 0)
+        const doorLayer3 = map.createLayer('Door3', tileset, 0, 0)
 
         wallLayer.setCollisionByProperty({ collides: true })
         houseLayer.setCollisionByProperty({ collides: true })
         doorLayer1.setCollisionByProperty({ collides: true })
         doorLayer2.setCollisionByProperty({ collides: true })
+        doorLayer3.setCollisionByProperty({ collides: true })
 
         let slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn')
         if(spawnFlag == 'lv1_door'){
@@ -24,6 +26,9 @@ class Menu extends Phaser.Scene {
         }
         if(spawnFlag == 'lv2_door'){
             slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn3')
+        }
+        if(spawnFlag == 'lv3_door'){
+            slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn4')
         }
         this.slime = this.physics.add.sprite(slimeSpawn.x, slimeSpawn.y, 'slime', 0)
         this.anims.create({
@@ -49,6 +54,13 @@ class Menu extends Phaser.Scene {
             if(lvCompleted == 0) {
                 //lvCompleted++
                 this.scene.start('lv2entertextScene')
+            }
+        }, null, this)
+        this.physics.add.collider(this.slime, doorLayer3, () =>{
+            key = 0
+            if(lvCompleted == 0) {
+                //lvCompleted++
+                this.scene.start('lv3entertextScene')
             }
         }, null, this)
         this.VEL = 100
