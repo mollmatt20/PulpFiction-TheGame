@@ -17,7 +17,7 @@ class Title extends Phaser.Scene {
             this.screenText.setText('The Game')
         })
         this.time.delayedCall(4000, () => {
-            this.screenText.setText('lol')
+            this.screenText.setText('Press up to continue')
         })
         
         // set up cursor keys
@@ -27,7 +27,7 @@ class Title extends Phaser.Scene {
     update(){
         if(Phaser.Input.Keyboard.JustDown(cursors.up)) {
             spawnFlag = 'menu'
-            this.scene.start('lv3entertextScene')
+            this.scene.start('menuScene')
         }
     }
 }
