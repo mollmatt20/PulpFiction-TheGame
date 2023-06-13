@@ -5,17 +5,15 @@ class Menu extends Phaser.Scene {
 
     create(){
         const map = this.add.tilemap('menuJSON')
-        const tileset = map.addTilesetImage('colored_packed', 'tilesetImage')
+        const tileset = map.addTilesetImage('PulpFiction_packed','tileset')
 
         const floorLayer = map.createLayer('Floor', tileset, 0, 0)
         const wallLayer = map.createLayer('Wall', tileset, 0, 0)
-        const houseLayer = map.createLayer('House', tileset, 0, 0)
         const doorLayer1 = map.createLayer('Door1', tileset, 0, 0)
         const doorLayer2 = map.createLayer('Door2', tileset, 0, 0)
         const doorLayer3 = map.createLayer('Door3', tileset, 0, 0)
 
         wallLayer.setCollisionByProperty({ collides: true })
-        houseLayer.setCollisionByProperty({ collides: true })
         doorLayer1.setCollisionByProperty({ collides: true })
         doorLayer2.setCollisionByProperty({ collides: true })
         doorLayer3.setCollisionByProperty({ collides: true })
@@ -41,7 +39,6 @@ class Menu extends Phaser.Scene {
         
         this.slime.body.setCollideWorldBounds(true)
         this.physics.add.collider(this.slime, wallLayer)
-        this.physics.add.collider(this.slime, houseLayer)
         this.physics.add.collider(this.slime, doorLayer1, () =>{
             coin = 0
             if(lvCompleted == 0) {

@@ -5,18 +5,16 @@ class Lv2_out extends Phaser.Scene {
     
     create() {
         const map = this.add.tilemap('lv2_outJSON')
-        const tileset = map.addTilesetImage('colored_packed', 'tilesetImage')
+        const tileset = map.addTilesetImage('PulpFiction_packed', 'tileset')
 
         const floorLayer = map.createLayer('Floor', tileset, 0, 0)
         const wallLayer = map.createLayer('Wall', tileset, 0, 0)
-        const houseLayer = map.createLayer('House', tileset, 0, 0)
         const returnLayer = map.createLayer('Return Door', tileset, 0, 0)
         const door1Layer = map.createLayer('Door1', tileset, 0, 0) 
         const door2Layer = map.createLayer('Door2', tileset, 0, 0)        
         const door3Layer = map.createLayer('Door3', tileset, 0, 0)               
 
         wallLayer.setCollisionByProperty({ collides: true })
-        houseLayer.setCollisionByProperty({ collides: true })
         returnLayer.setCollisionByProperty({ collides: true })
         door1Layer.setCollisionByProperty({ collides: true })
         door2Layer.setCollisionByProperty({ collides: true })
@@ -41,7 +39,6 @@ class Lv2_out extends Phaser.Scene {
 
         this.slime.body.setCollideWorldBounds(true)
         this.physics.add.collider(this.slime, wallLayer)
-        this.physics.add.collider(this.slime, houseLayer)
         this.physics.add.collider(this.slime, returnLayer, () => {
             spawnFlag = 'lv2_door'
             this.scene.start('menuScene')
@@ -74,11 +71,6 @@ class Lv2_out extends Phaser.Scene {
                 this.scene.start('lv2build3text1Scene')
             }
         })
-
-        //this.physics.add.overlap(this.slime, this.coinGroup, (obj1, obj2) => {
-          //  coin++;
-          //  obj2.destroy(); // remove coin on overlap
-        //});
 
         this.VEL = 200
 
