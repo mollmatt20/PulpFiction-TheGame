@@ -9,35 +9,44 @@ class Lv1_out extends Phaser.Scene {
 
         const floorLayer = map.createLayer('Floor', tileset, 0, 0)
         const wallLayer = map.createLayer('Wall', tileset, 0, 0)
-        const doorLayer = map.createLayer('Door', tileset, 0, 0)
-        const door2Layer = map.createLayer('Door2', tileset, 0, 0)        
+        const door1Layer = map.createLayer('Door1', tileset, 0, 0)
+        const door2Layer = map.createLayer('Door2', tileset, 0, 0) 
+        const door3Layer = map.createLayer('Door3', tileset, 0, 0) 
 
         wallLayer.setCollisionByProperty({ collides: true })
-        doorLayer.setCollisionByProperty({ collides: true })
+        door1Layer.setCollisionByProperty({ collides: true })
         door2Layer.setCollisionByProperty({ collides: true })
+        door3Layer.setCollisionByProperty({ collides: true })
 
         let slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn')
         if(spawnFlag == 'build1'){
             slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn2')
+        } else if(spawnFlag == 'build2'){
+            slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn3')
         }
         this.slime = this.physics.add.sprite(slimeSpawn.x, slimeSpawn.y, 'slime', 0)
-        this.anims.create({
-            key: 'jiggle',
-            frameRate: 8,
-            repeat: -1,
-            frames: this.anims.generateFrameNumbers('slime', { start: 0, end: 1})
-        })
+        
         this.slime.play('jiggle')
 
         this.slime.body.setCollideWorldBounds(true)
         this.physics.add.collider(this.slime, wallLayer)
-        this.physics.add.collider(this.slime, doorLayer, () => {
-            spawnFlag = 'lv1_door'
-            this.scene.start('menuScene')
+        this.physics.add.collider(this.slime, door1Layer, () => {
+            if(key == 2) {
+                spawnFlag = 'lv1_door'
+                this.scene.start('menuScene')
+            }
         })
         this.physics.add.collider(this.slime, door2Layer, () => {
-            spawnFlag = 'build1'
-            this.scene.start('lv1build1textScene')
+            if(key == 0) {
+                spawnFlag = 'build1'
+                this.scene.start('lv1build1textScene')
+            }
+        })
+        this.physics.add.collider(this.slime, door3Layer, () => {
+            if(key == 1) {
+                spawnFlag = 'build2'
+                this.scene.start('lv1build2textScene')
+            }
         })
 
         this.VEL = 200

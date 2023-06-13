@@ -34,12 +34,12 @@ class Lv1_build1Text extends Phaser.Scene {
             this.screenText.setText("...")
         })
         this.time.delayedCall(21000, () => {
-            this.scene.start('lv1buildScene')
+            this.scene.start('lv1build1Scene')
         })
     }
     update() {
         if(Phaser.Input.Keyboard.JustDown(keySPACE)) {
-            this.scene.start('lv1buildScene');
+            this.scene.start('lv1build1Scene');
         }
     }
 }
