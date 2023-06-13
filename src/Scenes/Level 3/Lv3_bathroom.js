@@ -5,13 +5,15 @@ class Lv3_bathroom extends Phaser.Scene {
 
     create() {
         const map = this.add.tilemap('lv3_bathroomJSON')
-        const tileset = map.addTilesetImage('colored_packed', 'tilesetImage')
+        const tileset = map.addTilesetImage('PulpFiction_packed', 'tileset')
 
         const floorLayer = map.createLayer('Floor', tileset, 0, 0)
         const wallLayer = map.createLayer('Wall', tileset, 0, 0)
+        const bathLayer = map.createLayer('Bathroom Accessories', tileset, 0, 0)
         const doorLayer = map.createLayer('Door', tileset, 0, 0)
 
         wallLayer.setCollisionByProperty({ collides: true })
+        bathLayer.setCollisionByProperty({ collides: true })
         doorLayer.setCollisionByProperty({ collides: true })
 
         let slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn')
@@ -39,7 +41,9 @@ class Lv3_bathroom extends Phaser.Scene {
         this.slime.body.setCollideWorldBounds(true)
         this.physics.add.collider(this.slime, wallLayer)
         this.physics.add.collider(this.slime, doorLayer, () => {
-            this.scene.start('lv3homeScene')
+            if(key == 1) {
+                this.scene.start('lv3homeScene')
+            }
         })
 
         this.physics.add.overlap(this.slime, this.key, (obj1, obj2) => {

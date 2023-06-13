@@ -5,14 +5,16 @@ class Lv2_bathroom extends Phaser.Scene {
 
     create() {
         const map = this.add.tilemap('lv2_bathroomJSON')
-        const tileset = map.addTilesetImage('colored_packed', 'tilesetImage')
+        const tileset = map.addTilesetImage('PulpFiction_packed', 'tileset')
 
         const floorLayer = map.createLayer('Floor', tileset, 0, 0)
         const wallLayer = map.createLayer('Wall', tileset, 0, 0)
+        const bathLayer = map.createLayer('Bathroom Accessories', tileset, 0, 0)
         const doorLayer = map.createLayer('Door', tileset, 0, 0)
 
-        wallLayer.setCollisionByProperty({ collides: true })
         doorLayer.setCollisionByProperty({ collides: true })
+        wallLayer.setCollisionByProperty({ collides: true })
+        bathLayer.setCollisionByProperty({ collides: true })
 
         let slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn')
 
@@ -26,7 +28,7 @@ class Lv2_bathroom extends Phaser.Scene {
         this.slime.play('jiggle')
 
         this.key = map.createFromObjects("Objects", {
-            name: "key",
+            name: "Key",
             key: "kenney_sheet",
             frame: 560
         });

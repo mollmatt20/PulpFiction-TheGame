@@ -5,13 +5,15 @@ class Lv1_Build extends Phaser.Scene {
 
     create() {
         const map = this.add.tilemap('lv1_buildJSON')
-        const tileset = map.addTilesetImage('colored_packed', 'tilesetImage')
+        const tileset = map.addTilesetImage('PulpFiction_packed', 'tileset')
 
         const floorLayer = map.createLayer('Floor', tileset, 0, 0)
+        const tableLayer = map.createLayer('Table', tileset, 0, 0)        
         const wallLayer = map.createLayer('Wall', tileset, 0, 0)
         const doorLayer = map.createLayer('Door', tileset, 0, 0)
 
         wallLayer.setCollisionByProperty({ collides: true })
+        tableLayer.setCollisionByProperty({ collides: true })
         doorLayer.setCollisionByProperty({ collides: true })
 
         const slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn')
@@ -24,11 +26,28 @@ class Lv1_Build extends Phaser.Scene {
         })
         this.slime.play('jiggle')
 
+        this.key = map.createFromObjects("Objects", {
+            name: "Key",
+            key: "kenney_sheet",
+            frame: 560
+        });
+
+        this.physics.world.enable(this.key, Phaser.Physics.Arcade.STATIC_BODY);
+
         this.slime.body.setCollideWorldBounds(true)
+
         this.physics.add.collider(this.slime, wallLayer)
+        this.physics.add.collider(this.slime, tableLayer)
         this.physics.add.collider(this.slime, doorLayer, () => {
-            this.scene.start('lv1outScene')
+            if(key == 1) {
+                this.scene.start('lv1outScene')
+            }
         })
+
+        this.physics.add.overlap(this.slime, this.key, (obj1, obj2) => {
+            key++;
+            obj2.destroy(); // remove coin on overlap
+        });
 
         this.VEL = 100
 

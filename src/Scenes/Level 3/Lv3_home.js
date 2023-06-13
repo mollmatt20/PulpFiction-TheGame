@@ -5,14 +5,16 @@ class Lv3_home extends Phaser.Scene {
     
     create() {
         const map = this.add.tilemap('lv3_homeJSON')
-        const tileset = map.addTilesetImage('colored_packed', 'tilesetImage')
+        const tileset = map.addTilesetImage('PulpFiction_packed', 'tileset')
 
         const floorLayer = map.createLayer('Floor', tileset, 0, 0)
         const wallLayer = map.createLayer('Wall', tileset, 0, 0)
+        const tableLayer = map.createLayer('Table', tileset, 0, 0)
         const mainLayer = map.createLayer('Main Door', tileset, 0, 0)
         const returnLayer = map.createLayer('Return Door', tileset, 0, 0)                
 
         wallLayer.setCollisionByProperty({ collides: true })
+        tableLayer.setCollisionByProperty({ collides: true })
         mainLayer.setCollisionByProperty({ collides: true })
         returnLayer.setCollisionByProperty({ collides: true })
 

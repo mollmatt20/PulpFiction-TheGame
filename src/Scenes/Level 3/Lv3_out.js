@@ -5,7 +5,7 @@ class Lv3_out extends Phaser.Scene {
     
     create() {
         const map = this.add.tilemap('lv3_outJSON')
-        const tileset = map.addTilesetImage('colored_packed', 'tilesetImage')
+        const tileset = map.addTilesetImage('PulpFiction_packed', 'tileset')
 
         const floor1Layer = map.createLayer('Floor1', tileset, 0, 0)
         const floor2Layer = map.createLayer('Floor2', tileset, 0, 0)

@@ -5,13 +5,15 @@ class Lv2_build1 extends Phaser.Scene {
 
     create() {
         const map = this.add.tilemap('lv2_build1JSON')
-        const tileset = map.addTilesetImage('colored_packed', 'tilesetImage')
+        const tileset = map.addTilesetImage('PulpFiction_packed', 'tileset')
 
         const floorLayer = map.createLayer('Floor', tileset, 0, 0)
         const wallLayer = map.createLayer('Wall', tileset, 0, 0)
+        const tableLayer = map.createLayer('Table', tileset, 0, 0)
         const doorLayer = map.createLayer('Door', tileset, 0, 0)
 
         wallLayer.setCollisionByProperty({ collides: true })
+        tableLayer.setCollisionByProperty({ collides: true })
         doorLayer.setCollisionByProperty({ collides: true })
 
         let slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn')
@@ -38,6 +40,7 @@ class Lv2_build1 extends Phaser.Scene {
 
         this.slime.body.setCollideWorldBounds(true)
         this.physics.add.collider(this.slime, wallLayer)
+        this.physics.add.collider(this.slime, tableLayer)
         this.physics.add.collider(this.slime, doorLayer, () => {
             if(key == 1 || key == 5) {
                 this.scene.start('lv2outScene')
