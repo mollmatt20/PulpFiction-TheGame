@@ -18,42 +18,35 @@ class Menu extends Phaser.Scene {
         doorLayer2.setCollisionByProperty({ collides: true })
         doorLayer3.setCollisionByProperty({ collides: true })
 
-        let slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn')
+        let vinceSpawn = map.findObject('Spawns', obj => obj.name === 'ogSpawn')
         if(spawnFlag == 'lv1_door'){
-            slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn2')
+            vinceSpawn = map.findObject('Spawns', obj => obj.name === 'lv1Spawn')
         }
         if(spawnFlag == 'lv2_door'){
-            slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn3')
+            vinceSpawn = map.findObject('Spawns', obj => obj.name === 'lv2Spawn')
         }
         if(spawnFlag == 'lv3_door'){
-            slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn4')
+            vinceSpawn = map.findObject('Spawns', obj => obj.name === 'lv3Spawn')
         }
-        this.slime = this.physics.add.sprite(slimeSpawn.x, slimeSpawn.y, 'slime', 0)
-        this.anims.create({
-            key: 'jiggle',
-            frameRate: 8,
-            repeat: -1,
-            frames: this.anims.generateFrameNumbers('slime', { start: 0, end: 1})
-        })
-        this.slime.play('jiggle')
+        this.vince = this.physics.add.sprite(vinceSpawn.x, vinceSpawn.y, 'vince', 0)
         
-        this.slime.body.setCollideWorldBounds(true)
-        this.physics.add.collider(this.slime, wallLayer)
-        this.physics.add.collider(this.slime, doorLayer1, () =>{
+        this.vince.body.setCollideWorldBounds(true)
+        this.physics.add.collider(this.vince, wallLayer)
+        this.physics.add.collider(this.vince, doorLayer1, () =>{
             key = 0
             if(lvCompleted == 0) {
                 //lvCompleted++
                 this.scene.start('lv1entertextScene')
             }
         }, null, this)
-        this.physics.add.collider(this.slime, doorLayer2, () =>{
+        this.physics.add.collider(this.vince, doorLayer2, () =>{
             key = 0
             if(lvCompleted == 0) {
                 //lvCompleted++
                 this.scene.start('lv2entertextScene')
             }
         }, null, this)
-        this.physics.add.collider(this.slime, doorLayer3, () =>{
+        this.physics.add.collider(this.vince, doorLayer3, () =>{
             key = 0
             if(lvCompleted == 0) {
                 //lvCompleted++
@@ -66,7 +59,7 @@ class Menu extends Phaser.Scene {
         // camera properties
         this.cam = this.cameras.main
         this.cam.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-        this.cam.centerOn(this.slime.x, this.slime.y);
+        this.cam.centerOn(this.vince.x, this.vince.y);
 
         this.physics.world.bounds.setTo(0, 0, map.widthInPixels, map.heightInPixels);
 
@@ -75,7 +68,7 @@ class Menu extends Phaser.Scene {
 
     update() {
         // check player against camera bounds
-        this.checkCamBounds(this.slime, this.cam)
+        this.checkCamBounds(this.vince, this.cam)
 
         this.direction = new Phaser.Math.Vector2(0)
         if(this.cursors.left.isDown) {
@@ -89,7 +82,7 @@ class Menu extends Phaser.Scene {
             this.direction.y = 1
         }
         this.direction.normalize()
-        this.slime.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
+        this.vince.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
     }
 
     // check passed obj against passed camera bounds to scroll camera

@@ -265,7 +265,7 @@
                 {
                  "height":0,
                  "id":4,
-                 "name":"slimeSpawn",
+                 "name":"ogSpawn",
                  "point":true,
                  "rotation":0,
                  "type":"",
@@ -277,7 +277,7 @@
                 {
                  "height":0,
                  "id":5,
-                 "name":"slimeSpawn2",
+                 "name":"buildSpawn1",
                  "point":true,
                  "rotation":0,
                  "type":"",
@@ -289,7 +289,7 @@
                 {
                  "height":0,
                  "id":6,
-                 "name":"slimeSpawn3",
+                 "name":"buildSpawn2",
                  "point":true,
                  "rotation":0,
                  "type":"",

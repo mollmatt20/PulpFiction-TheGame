@@ -603,7 +603,7 @@
 </data>
  </layer>
  <objectgroup id="6" name="Spawns">
-  <object id="2" name="slimeSpawn" x="168.5" y="265">
+  <object id="2" name="ogSpawn" x="168.5" y="265">
    <point/>
   </object>
  </objectgroup>

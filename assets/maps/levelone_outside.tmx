@@ -6016,13 +6016,13 @@
 </data>
  </layer>
  <objectgroup id="5" name="Spawns">
-  <object id="4" name="slimeSpawn" x="152.25" y="154.5">
+  <object id="4" name="ogSpawn" x="152.25" y="154.5">
    <point/>
   </object>
-  <object id="5" name="slimeSpawn2" x="488" y="486.5">
+  <object id="5" name="buildSpawn1" x="488" y="486.5">
    <point/>
   </object>
-  <object id="6" name="slimeSpawn3" x="792" y="179.333">
+  <object id="6" name="buildSpawn2" x="792" y="179.333">
    <point/>
   </object>
  </objectgroup>
