@@ -19,12 +19,12 @@ class Lv2_build2Text2 extends Phaser.Scene {
             this.screenText.setText("Why do I feel like I need\nto head to the bathroom?")
         })
         this.time.delayedCall(6000, () => {
-            this.scene.start('lv2build2Scene')
+            this.scene.start('lv2build2_noObjects_Scene')
         })
     }
     update() {
         if(Phaser.Input.Keyboard.JustDown(keySPACE)) {
-            this.scene.start('lv2build2Scene');
+            this.scene.start('lv2build2_noObjects_Scene');
         }
     }
 }

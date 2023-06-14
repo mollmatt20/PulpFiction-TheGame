@@ -14,7 +14,7 @@ class Lv3_enterText extends Phaser.Scene {
 
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         
-        this.screenText = this.add.text(game.config.width/2, game.config.height/2, "Ok... this place seems familiar.", textConfig).setOrigin(0.5);
+        this.screenText = this.add.text(game.config.width/2, game.config.height/2, "Ok... this place seems familiar.", textConfig).setOrigin(0.5)
         this.time.delayedCall(3000, () => {
             this.screenText.setText("Boss told me Butch\ndouble crossed him.")
         })

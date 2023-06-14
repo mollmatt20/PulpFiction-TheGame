@@ -1,44 +1,48 @@
-class Lv3_home extends Phaser.Scene {
+class Lv2_build2_noObjects extends Phaser.Scene {
     constructor() {
-        super('lv3homeScene')
+        super('lv2build2_noObjects_Scene')
     }
-    
+
     create() {
-        const map = this.add.tilemap('lv3_homeJSON')
+        const map = this.add.tilemap('lv2_build2_noObjectsJSON')
         const tileset = map.addTilesetImage('PulpFiction_packed', 'tileset')
 
         const floorLayer = map.createLayer('Floor', tileset, 0, 0)
         const wallLayer = map.createLayer('Wall', tileset, 0, 0)
         const tableLayer = map.createLayer('Table', tileset, 0, 0)
-        const mainLayer = map.createLayer('Main Door', tileset, 0, 0)
-        const returnLayer = map.createLayer('Return Door', tileset, 0, 0)                
+        const doorLayer = map.createLayer('Door', tileset, 0, 0)
+        const bathroomLayer = map.createLayer('Bathroom Door', tileset, 0, 0)
 
         wallLayer.setCollisionByProperty({ collides: true })
         tableLayer.setCollisionByProperty({ collides: true })
-        mainLayer.setCollisionByProperty({ collides: true })
-        returnLayer.setCollisionByProperty({ collides: true })
+        doorLayer.setCollisionByProperty({ collides: true })
+        bathroomLayer.setCollisionByProperty({ collides: true })
 
         let slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn')
-        if(spawnFlag == 'endDoor'){
-            slimeSpawn = map.findObject('Spawns', obj => obj.name === 'doorSpawn')
-        } 
+        if(spawnFlag == 'bathroom') {
+            let slimeSpawn = map.findObject('Spawns', obj => obj.name === 'bathroomSpawn')
+        }
+
         this.slime = this.physics.add.sprite(slimeSpawn.x, slimeSpawn.y, 'slime', 0)
         
         this.slime.play('jiggle')
 
         this.slime.body.setCollideWorldBounds(true)
         this.physics.add.collider(this.slime, wallLayer)
-        this.physics.add.collider(this.slime, returnLayer, () => {
-            spawnFlag = 'mainDoor'
-            this.scene.start('lv3outScene')
+        this.physics.add.collider(this.slime, tableLayer)
+        this.physics.add.collider(this.slime, bathroomLayer, () => {
+            if(key == 3) {
+                this.scene.start('lv2bathroomtextScene')
+            }
         })
-        this.physics.add.collider(this.slime, mainLayer, () => {
-            spawnFlag = 'endDoor'
-            this.scene.start('lv3bathroomtextScene')
+        this.physics.add.collider(this.slime, doorLayer, () => {
+            if(key == 4) {
+                spawnFlag = 'build2'
+                this.scene.start('lv2outScene')
+            }
         })
         
-
-        this.VEL = 200
+        this.VEL = 100
 
         // camera properties
         this.cam = this.cameras.main
@@ -84,5 +88,5 @@ class Lv3_home extends Phaser.Scene {
             cam.setScroll(cam.scrollX, cam.scrollY - cam.height);
             obj.y = cam.scrollY + cam.height - obj.height/2;
         }
-    }
+    }   
 }
