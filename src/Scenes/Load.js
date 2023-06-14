@@ -25,6 +25,7 @@ class Load extends Phaser.Scene {
         this.load.tilemapTiledJSON('lv3_homeJSON', 'maps/levelthree_home.json')
         this.load.tilemapTiledJSON('lv3_bathroomJSON', 'maps/levelthree_bathroom.json')
         this.load.audio('gunshot', 'gunshot.mp3')
+        this.load.audio('gunclip', 'gunclip.mp3')
     }
 
     create() {

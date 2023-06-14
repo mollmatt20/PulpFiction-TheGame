@@ -265,14 +265,14 @@
                 {
                  "height":0,
                  "id":3,
-                 "name":"slimeSpawn",
+                 "name":"ogSpawn",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":280.545454545455,
-                 "y":186.363636363636
+                 "x":280.545,
+                 "y":186.364
                 }, 
                 {
                  "height":0,
@@ -284,7 +284,7 @@
                  "visible":true,
                  "width":0,
                  "x":88,
-                 "y":184.333333333333
+                 "y":184.333
                 }],
          "opacity":1,
          "type":"objectgroup",

@@ -11169,7 +11169,7 @@
 </data>
  </layer>
  <objectgroup id="4" name="Spawns">
-  <object id="1" name="slimeSpawn" x="72.3333" y="168.333">
+  <object id="1" name="ogSpawn" x="72.3333" y="168.333">
    <point/>
   </object>
  </objectgroup>

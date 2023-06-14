@@ -18,24 +18,22 @@ class Lv2_build2_noObjects extends Phaser.Scene {
         doorLayer.setCollisionByProperty({ collides: true })
         bathroomLayer.setCollisionByProperty({ collides: true })
 
-        let slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn')
+        let vinceSpawn = map.findObject('Spawns', obj => obj.name === 'ogSpawn')
         if(spawnFlag == 'bathroom') {
-            let slimeSpawn = map.findObject('Spawns', obj => obj.name === 'bathroomSpawn')
+            let vinceSpawn = map.findObject('Spawns', obj => obj.name === 'bathroomSpawn')
         }
 
-        this.slime = this.physics.add.sprite(slimeSpawn.x, slimeSpawn.y, 'slime', 0)
+        this.vince = this.physics.add.sprite(vinceSpawn.x, vinceSpawn.y, 'vince', 0)
         
-        this.slime.play('jiggle')
-
-        this.slime.body.setCollideWorldBounds(true)
-        this.physics.add.collider(this.slime, wallLayer)
-        this.physics.add.collider(this.slime, tableLayer)
-        this.physics.add.collider(this.slime, bathroomLayer, () => {
+        this.vince.body.setCollideWorldBounds(true)
+        this.physics.add.collider(this.vince, wallLayer)
+        this.physics.add.collider(this.vince, tableLayer)
+        this.physics.add.collider(this.vince, bathroomLayer, () => {
             if(key == 3) {
                 this.scene.start('lv2bathroomtextScene')
             }
         })
-        this.physics.add.collider(this.slime, doorLayer, () => {
+        this.physics.add.collider(this.vince, doorLayer, () => {
             if(key == 4) {
                 spawnFlag = 'build2'
                 this.scene.start('lv2outScene')
@@ -47,7 +45,7 @@ class Lv2_build2_noObjects extends Phaser.Scene {
         // camera properties
         this.cam = this.cameras.main
         this.cam.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-        this.cam.centerOn(this.slime.x, this.slime.y);
+        this.cam.centerOn(this.vince.x, this.vince.y);
 
         this.physics.world.bounds.setTo(0, 0, map.widthInPixels, map.heightInPixels);
 
@@ -55,7 +53,7 @@ class Lv2_build2_noObjects extends Phaser.Scene {
     }
 
     update() {
-        this.checkCamBounds(this.slime, this.cam)
+        this.checkCamBounds(this.vince, this.cam)
 
         this.direction = new Phaser.Math.Vector2(0)
         if(this.cursors.left.isDown) {
@@ -69,7 +67,7 @@ class Lv2_build2_noObjects extends Phaser.Scene {
             this.direction.y = 1
         }
         this.direction.normalize()
-        this.slime.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
+        this.vince.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
     }
 
     checkCamBounds(obj, cam) {

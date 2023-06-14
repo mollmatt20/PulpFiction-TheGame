@@ -5842,7 +5842,7 @@
   <object id="1" name="Key" gid="1617" x="181" y="183" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="5" name="Spawns">
-  <object id="2" name="slimeSpawn" x="72.5" y="183.5">
+  <object id="2" name="ogSpawn" x="72.5" y="183.5">
    <point/>
   </object>
  </objectgroup>

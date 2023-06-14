@@ -6374,7 +6374,7 @@
 </data>
  </layer>
  <objectgroup id="9" name="Spawns">
-  <object id="1" name="slimeSpawn" x="151.591" y="154.727">
+  <object id="1" name="ogSpawn" x="151.591" y="154.727">
    <point/>
   </object>
   <object id="2" name="build1Spawn" x="128" y="455.5">

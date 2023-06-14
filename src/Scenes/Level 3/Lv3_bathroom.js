@@ -16,12 +16,10 @@ class Lv3_bathroom extends Phaser.Scene {
         bathLayer.setCollisionByProperty({ collides: true })
         doorLayer.setCollisionByProperty({ collides: true })
 
-        let slimeSpawn = map.findObject('Spawns', obj => obj.name === 'slimeSpawn')
+        let vinceSpawn = map.findObject('Spawns', obj => obj.name === 'ogSpawn')
 
-        this.slime = this.physics.add.sprite(slimeSpawn.x, slimeSpawn.y, 'slime', 0)
+        this.vince = this.physics.add.sprite(vinceSpawn.x, vinceSpawn.y, 'vince', 0)
         
-        this.slime.play('jiggle')
-
         this.key = map.createFromObjects("Objects", {
             name: "key",
             key: "kenney_sheet",
@@ -33,15 +31,15 @@ class Lv3_bathroom extends Phaser.Scene {
         // second parameter is 0: DYNAMIC_BODY or 1: STATIC_BODY
         this.physics.world.enable(this.key, Phaser.Physics.Arcade.STATIC_BODY);
 
-        this.slime.body.setCollideWorldBounds(true)
-        this.physics.add.collider(this.slime, wallLayer)
-        this.physics.add.collider(this.slime, doorLayer, () => {
+        this.vince.body.setCollideWorldBounds(true)
+        this.physics.add.collider(this.vince, wallLayer)
+        this.physics.add.collider(this.vince, doorLayer, () => {
             if(key == 1) {
                 this.scene.start('endScene')
             }
         })
 
-        this.physics.add.overlap(this.slime, this.key, (obj1, obj2) => {
+        this.physics.add.overlap(this.vince, this.key, (obj1, obj2) => {
             key++;
             obj2.destroy(); // remove coin on overlap
         });
@@ -51,7 +49,7 @@ class Lv3_bathroom extends Phaser.Scene {
         // camera properties
         this.cam = this.cameras.main
         this.cam.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-        this.cam.centerOn(this.slime.x, this.slime.y);
+        this.cam.centerOn(this.vince.x, this.vince.y);
 
         this.physics.world.bounds.setTo(0, 0, map.widthInPixels, map.heightInPixels);
 
@@ -59,7 +57,7 @@ class Lv3_bathroom extends Phaser.Scene {
     }
 
     update() {
-        this.checkCamBounds(this.slime, this.cam)
+        this.checkCamBounds(this.vince, this.cam)
 
         this.direction = new Phaser.Math.Vector2(0)
         if(this.cursors.left.isDown) {
@@ -73,7 +71,7 @@ class Lv3_bathroom extends Phaser.Scene {
             this.direction.y = 1
         }
         this.direction.normalize()
-        this.slime.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
+        this.vince.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
     }
 
     checkCamBounds(obj, cam) {
