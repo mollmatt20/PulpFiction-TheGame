@@ -4,25 +4,31 @@ class Lv2_build2_noObjects extends Phaser.Scene {
     }
 
     create() {
+        // Add tilemap
         const map = this.add.tilemap('lv2_build2_noObjectsJSON')
         const tileset = map.addTilesetImage('PulpFiction_packed', 'tileset')
 
+        // Add tilemap layers
         const floorLayer = map.createLayer('Floor', tileset, 0, 0)
         const wallLayer = map.createLayer('Wall', tileset, 0, 0)
         const tableLayer = map.createLayer('Table', tileset, 0, 0)
         const doorLayer = map.createLayer('Door', tileset, 0, 0)
         const bathroomLayer = map.createLayer('Bathroom Door', tileset, 0, 0)
 
+        // Set collision properties of certain tilemap layers
         wallLayer.setCollisionByProperty({ collides: true })
         tableLayer.setCollisionByProperty({ collides: true })
         doorLayer.setCollisionByProperty({ collides: true })
         bathroomLayer.setCollisionByProperty({ collides: true })
 
+        // Player spawn points depending which level they entered
         let vinceSpawn = map.findObject('Spawns', obj => obj.name === 'ogSpawn')
         if(spawnFlag == 'bathroom') {
             let vinceSpawn = map.findObject('Spawns', obj => obj.name === 'bathroomSpawn')
         }
 
+        // Apply colliding physics to player and transfer to
+        // new scene through a door if the prerequisites are met
         this.vince = this.physics.add.sprite(vinceSpawn.x, vinceSpawn.y, 'vince', 0)
         
         this.vince.body.setCollideWorldBounds(true)

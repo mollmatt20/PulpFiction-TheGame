@@ -4,31 +4,35 @@ class Lv3_bathroom extends Phaser.Scene {
     }
 
     create() {
+        // Add tilemap
         const map = this.add.tilemap('lv3_bathroomJSON')
         const tileset = map.addTilesetImage('PulpFiction_packed', 'tileset')
 
+        // Add tilemap layers
         const floorLayer = map.createLayer('Floor', tileset, 0, 0)
         const wallLayer = map.createLayer('Wall', tileset, 0, 0)
         const bathLayer = map.createLayer('Bathroom Accessories', tileset, 0, 0)
         const doorLayer = map.createLayer('Door', tileset, 0, 0)
 
+        // Set collision properties of certain tilemap layers
         wallLayer.setCollisionByProperty({ collides: true })
         bathLayer.setCollisionByProperty({ collides: true })
         doorLayer.setCollisionByProperty({ collides: true })
 
+        // Player spawn points depending which level they entered
         let vinceSpawn = map.findObject('Spawns', obj => obj.name === 'ogSpawn')
 
         this.vince = this.physics.add.sprite(vinceSpawn.x, vinceSpawn.y, 'vince', 0)
         
+        // Create key from tilemap
         this.key = map.createFromObjects("Objects", {
             name: "key",
             key: "kenney_sheet",
             frame: 560
         });
 
-        // for simplicity's sake, we'll add physics to the coins manually
-        // https://newdocs.phaser.io/docs/3.54.0/Phaser.Physics.Arcade.World#enable        
-        // second parameter is 0: DYNAMIC_BODY or 1: STATIC_BODY
+        // Apply colliding physics to player and transfer to
+        // new scene through a door if the prerequisites are met
         this.physics.world.enable(this.key, Phaser.Physics.Arcade.STATIC_BODY);
 
         this.vince.body.setCollideWorldBounds(true)

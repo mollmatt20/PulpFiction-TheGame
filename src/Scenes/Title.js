@@ -4,8 +4,10 @@ class Title extends Phaser.Scene {
     }
 
     create() {
+        // Set keyboard SPACE input
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
+        // Font config
         let textConfig = {
             fontFamily: 'Courier',
             fontSize: '15px',
@@ -13,6 +15,8 @@ class Title extends Phaser.Scene {
             align: 'center',
             fixedWidth: 300
         }
+
+        // Set text and sound to drop at the same time 
         let sound = this.sound.add('gunclip')
         this.screenText = this.add.text(game.config.width/2, game.config.height/2, ' ', textConfig).setOrigin(0.5)
         this.time.delayedCall(1000, () => {

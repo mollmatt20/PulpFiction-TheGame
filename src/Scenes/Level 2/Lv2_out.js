@@ -4,9 +4,11 @@ class Lv2_out extends Phaser.Scene {
     }
     
     create() {
+        // Add tilemap
         const map = this.add.tilemap('lv2_outJSON')
         const tileset = map.addTilesetImage('PulpFiction_packed', 'tileset')
 
+        // Add tilemap layers
         const floorLayer = map.createLayer('Floor', tileset, 0, 0)
         const wallLayer = map.createLayer('Wall', tileset, 0, 0)
         const returnLayer = map.createLayer('Return Door', tileset, 0, 0)
@@ -14,12 +16,14 @@ class Lv2_out extends Phaser.Scene {
         const door2Layer = map.createLayer('Door2', tileset, 0, 0)        
         const door3Layer = map.createLayer('Door3', tileset, 0, 0)               
 
+        // Set collision properties of certain tilemap layers
         wallLayer.setCollisionByProperty({ collides: true })
         returnLayer.setCollisionByProperty({ collides: true })
         door1Layer.setCollisionByProperty({ collides: true })
         door2Layer.setCollisionByProperty({ collides: true })
         door3Layer.setCollisionByProperty({ collides: true })
 
+        // Player spawn points depending which level they entered
         let vinceSpawn = map.findObject('Spawns', obj => obj.name === 'ogSpawn')
         if(spawnFlag == 'build1'){
             vinceSpawn = map.findObject('Spawns', obj => obj.name === 'build1Spawn')
@@ -30,6 +34,8 @@ class Lv2_out extends Phaser.Scene {
         }
         this.vince = this.physics.add.sprite(vinceSpawn.x, vinceSpawn.y, 'vince', 0)
         
+        // Apply colliding physics to player and transfer to
+        // new scene through a door if the prerequisites are met
         this.vince.body.setCollideWorldBounds(true)
         this.physics.add.collider(this.vince, wallLayer)
         this.physics.add.collider(this.vince, returnLayer, () => {

@@ -4,21 +4,26 @@ class Lv1_Build1 extends Phaser.Scene {
     }
 
     create() {
+        // Add tilemap
         const map = this.add.tilemap('lv1_buildJSON')
         const tileset = map.addTilesetImage('PulpFiction_packed', 'tileset')
 
+        // Add tilemap layers
         const floorLayer = map.createLayer('Floor', tileset, 0, 0)
         const tableLayer = map.createLayer('Table', tileset, 0, 0)        
         const wallLayer = map.createLayer('Wall', tileset, 0, 0)
         const doorLayer = map.createLayer('Door', tileset, 0, 0)
 
+        // Set collision properties of certain tilemap layers
         wallLayer.setCollisionByProperty({ collides: true })
         tableLayer.setCollisionByProperty({ collides: true })
         doorLayer.setCollisionByProperty({ collides: true })
 
+        // Player spawn points depending which level they entered
         const vinceSpawn = map.findObject('Spawns', obj => obj.name === 'ogSpawn')
         this.vince = this.physics.add.sprite(vinceSpawn.x, vinceSpawn.y, 'vince', 0)
         
+        // Create key from tilemap
         this.key = map.createFromObjects("Objects", {
             name: "Key",
             key: "kenney_sheet",
@@ -27,6 +32,8 @@ class Lv1_Build1 extends Phaser.Scene {
 
         this.physics.world.enable(this.key, Phaser.Physics.Arcade.STATIC_BODY);
 
+        // Apply colliding physics to player and transfer to
+        // new scene through a door if the prerequisites are met
         this.vince.body.setCollideWorldBounds(true)
 
         this.physics.add.collider(this.vince, wallLayer)
