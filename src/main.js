@@ -1,3 +1,9 @@
+// Name: Matthew Guo
+// CMPM 120: The Greatest Film of All Time: The Video Game
+// Sources from freesound.org:
+// - gunclip.mp3 from Jackjan: https://freesound.org/people/Jackjan/sounds/159339/
+// - gunshot.mp3 from coolguy244e: https://freesound.org/people/coolguy244e/sounds/266915/
+
 let config = {
     type: Phaser.CANVAS,
     render: {
